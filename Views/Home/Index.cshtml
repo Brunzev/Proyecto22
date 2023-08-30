@@ -1,0 +1,59 @@
+﻿<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero d-flex align-items-center">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <h1 data-aos="fade-up">Nuestro crecimiento personal y profesionales no tienen límites.</h1>
+                <h2 data-aos="fade-up" data-aos-delay="400">El límite lo pones tú. Mientras más grandes seamos como personas, más grande será el BCP.</h2>
+                <div data-aos="fade-up" data-aos-delay="600">
+                    <div class="text-center text-lg-start">
+                        <a href="#about" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center" style="background-color: #F57D31;" data-bs-toggle="modal" data-bs-target="#registrar_inclusion">
+                            <span style="color: white;">BIENVENIDO A TU SISTEMA</span>
+                            @*<i class="bi bi-arrow-right"></i>*@
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                <img src="~/img/financiera.svg" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- End Hero -->
+
+<!-- ======= LO ÚLTIMO AÑADIDO ======= -->
+<div class="modal fade" id="registrar_inclusion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form name="Tarea" asp-area="" asp-controller="" asp-action="" enctype="multipart/form-data">
+                <div class="modal-header text-center">
+                    <img class="img-fluid" src="~/img/sesion.svg" alt="Image Description" data-hs-theme-appearance="default" style="width: 30%; margin: 0 auto;">
+                </div>
+                <div class="modal-body p-sm-5" style="max-height: 40vh; overflow-y: auto;">
+                    <form name="LoginForm" method="post" action="/tu_ruta_de_inicio_de_sesion">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Escriba el correo electrónico" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Escriba la contraseña" required>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CERRAR</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End Hero -->
