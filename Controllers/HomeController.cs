@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Proyecto.Models;
+using Python.Runtime;
 using System.Diagnostics;
 using System.Net.Mail;
 
@@ -33,13 +34,58 @@ namespace Proyecto.Controllers
         {
             return View();
         }
+        /*
+        [HttpPost]
+        public async Task<IActionResult> Prueba(IFormFile archivoExcel) {
+            if (archivoExcel != null && archivoExcel.Length > 0)
+            {
+                // Guardar el archivo en el servidor (opcional)
+                var filePath = Path.GetTempFileName();
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await archivoExcel.CopyToAsync(stream);
+                }
+
+                // Obtén la ruta completa al script Python
+                //Runtime.PythonDLL = @"C:\Users\teres\AppData\Local\Programs\Python\Python311\python311.dll"; // Ruta a la carpeta de instalación de Python
+                PythonEngine.Initialize();
+                try
+                {
+                    // Ejecuta tu script Python
+                    using (Py.GIL())
+                    {
+                        Console.WriteLine("Ejecutando Script desde el Controller");
+                        dynamic ScriptIA = Py.Import("ScriptIA");
+                        dynamic archivoExcelGenerado = ScriptIA.UsarModelo(filePath);
+                        if (archivoExcelGenerado != null)
+                        {
+                            ScriptIA.Enviar(archivoExcelGenerado);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error al generar el archivo Excel");
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Maneja cualquier excepción que pueda ocurrir durante la ejecución del script
+                    Console.WriteLine("Error al ejecutar el script Python: " + ex.Message);
+                }
+                // Puedes redirigir a una vista o realizar cualquier otra acción aquí*/
+                //return RedirectToAction("Index");
+
+           // }
+            //return View();  
+       // }
+        
 
         [HttpPost]
-        public IActionResult EnviarExcel(string confirmacion)
+        public async Task<IActionResult> EnviarExcel(IFormFile archivoExcel)
         {
             try
             {
-
                 MailMessage correo = new MailMessage();
                 correo.From = new MailAddress("atencio_zevallos@outlook.com");// el correo que se usara para enviar los mensajes
                 //correo.To.Add(cliente.Email); el  correo para enviar el mensaje
@@ -74,6 +120,53 @@ namespace Proyecto.Controllers
                 string sPasswordCorreo = "4485695Bruno.";
                 smtp.Credentials = new System.Net.NetworkCredential(sCuentaCorreo, sPasswordCorreo);
                 smtp.Send(correo);
+
+                if (archivoExcel != null && archivoExcel.Length > 0)
+                {
+                    // Guardar el archivo en el servidor (opcional)
+                    var filePath = Path.GetTempFileName();
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await archivoExcel.CopyToAsync(stream);
+                    }
+
+                    // Obtén la ruta completa al script Python
+                    //Runtime.PythonDLL = @"C:\Users\teres\AppData\Local\Programs\Python\Python311\python311.dll"; // Ruta a la carpeta de instalación de Python
+                    PythonEngine.Initialize();
+                    try
+                    {
+                        // Ejecuta tu script Python
+                        using (Py.GIL())
+                        {
+                            Console.WriteLine("Ejecutando Script desde el Controller");
+                            dynamic ScriptIA = Py.Import("ScriptIA");
+                            dynamic archivoExcelGenerado = ScriptIA.UsarModelo(filePath);
+                            if (archivoExcelGenerado != null)
+                            {
+                                ScriptIA.Enviar(archivoExcelGenerado);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Error al generar el archivo Excel");
+                            }
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Maneja cualquier excepción que pueda ocurrir durante la ejecución del script
+                        Console.WriteLine("Error al ejecutar el script Python: " + ex.Message);
+                    }
+                    // Puedes redirigir a una vista o realizar cualquier otra acción aquí*/
+                    return RedirectToAction("Index");
+
+                }
+
+
+
+
+
+
 
                 return View();
 
