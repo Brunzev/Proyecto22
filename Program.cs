@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Proyecto.Data;
+using Python.Runtime;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Obtén la ruta completa al script Python
+Runtime.PythonDLL = @"C:\Users\teres\AppData\Local\Programs\Python\Python311\python311.dll"; // Ruta a la carpeta de instalación de Python
 
 app.UseAuthentication();
 app.UseAuthorization();
