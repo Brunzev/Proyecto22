@@ -38,8 +38,6 @@
     * Author: BootstrapMade.com
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
-    @await RenderSectionAsync("Estilos", required: false)
-
 </head>
 
 <body>
@@ -54,28 +52,11 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto" asp-area="" asp-controller="Home" asp-action="Index">INICIO</a></li>
+                    <li><a class="nav-link scrollto active" asp-area="" asp-controller="Home" asp-action="Index">INICIO</a></li>
                     @*     <li><a class="nav-link scrollto" asp-area="" asp-controller="Home" asp-action="Servicio">SERVICIO</a></li> *@
-
-                    @{
-                        if (ViewBag.usuario == "gerente@bcp.com.pe")
-                        {
-                            <li><a class="nav-link scrollto" asp-area="" asp-controller="Home" asp-action="Escoger">ESCOGER</a></li>
-                            // <li><a class="nav-link scrollto" asp-area="" asp-controller="Home" asp-action="EnviarExcel">I.A.</a></li>
-                            <li class="nav-link scrollto">
-                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-                                </form>
-                            </li>
-                        }
-                        else
-                        {
-                            <li><a class="getstarted scrollto" style="background-color: #F57D31;" asp-area="Identity" asp-page="/Account/Login">INICIAR SESIÓN</a></li>
-                        }
-                    }
-
-
-                    
+                    <li><a class="nav-link scrollto" asp-area="" asp-controller="Home" asp-action="Escoger">ESCOGER</a></li>
+                    <li><a class="nav-link scrollto" asp-area="" asp-controller="Home" asp-action="EnviarExcel">I.A.</a></li>
+                    <li><a class="getstarted scrollto" style="background-color: #F57D31;" asp-area="Identity" asp-page="/Account/Login">INICIAR SESIÓN</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->

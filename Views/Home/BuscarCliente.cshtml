@@ -1,0 +1,170 @@
+﻿@model Proyecto.Models.ViewModel.BuscarTransaccion
+
+<br />
+<br />
+
+<section class="section">
+    <div class="row">
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <br />
+                    <br />
+                    <h1 class="display-5" style="color:#194A8D">DATOS DEL CLIENTE</h1>
+                    <hr />
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        <i class="bi bi-star me-1"></i>
+                        Ingresa un numero de DNI para realizar la busqueda
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <hr />
+                    <br />
+                    <form>
+
+                        <div class="row mb-3 m-2">
+                            <label class="col-sm-1 col-form-label">DNI: </label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" asp-for="dni">
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-primary"> Buscar </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <br />
+
+                    @{
+
+
+                        // int counter = 0;
+                        // string contador = "";
+                        // string contaheader = "";
+
+                        <h5 class="card-title">Resultados de la busqueda:</h5>
+                        <br />
+                        if (@ViewBag.ConfirmacionBusqueda == "No")
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="bi bi-exclamation-octagon me-1"></i>
+                                <strong>NO HAY REGISTRO ! </strong> con ese nombre y apellido.
+                                <hr />
+                                <p class="mb-0">Recuerda que tienes que ingresar un nombre y apellido paterno como minimo para buscar correctamente.</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
+
+                        foreach (var item in Model.Resultado)
+                        {
+                            <table id="miTabla" class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">DNI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span class="d-block h5 mb-0 text-start">@item.Nombre</span>
+                                        </td>
+                                        <td>
+                                            <span class="d-block h5 mb-0 text-start">@item.DNI</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            // counter = counter + 1;
+                            // contador = "pagina" + counter;
+                            // contaheader = "p" + counter;
+
+                            // <!-- Default Accordion -->
+                            // <div class="accordion" id="accordionExample">
+                            //     <div class="accordion-item">
+                            //         <h2 class="accordion-header" id="@contaheader">
+                            //             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@contador" aria-expanded="false" aria-controls="@contador">
+                            //                 @if (@item.Nombres is not null)
+                            //                 {
+                            //                     @item.Nombres.ToUpper()
+                            //                 }, @if (@item.ApePat is not null)
+                            //                 {
+                            //                     @item.ApePat.ToUpper()
+                            //                 } @if (@item.ApeMat is not null)
+                            //                 {
+                            //                     @item.ApeMat.ToUpper()
+                            //                 }
+                            //             </button>
+                            //         </h2>
+                            //         <div id="@contador" class="accordion-collapse collapse" aria-labelledby="@contaheader" data-bs-parent="#accordionExample">
+                            //             <div class="accordion-body">
+                            //                 <!-- Small tables -->
+                            //                 <table class="table table-sm" id="example">
+                            //                     <thead>
+                            //                         <tr>
+                            //                             <th scope="col">Programa y Modalidad</th>
+                            //                             <th scope="col">@item.NombreCorto.ToUpper() - @item.Modalidad.ToUpper()</th>
+                            //                         </tr>
+                            //                     </thead>
+                            //                     <tbody>
+                            //                         <tr>
+                            //                             <td scope="row">Codigo de Alumno</td>
+                            //                             <td>@item.CodigoAlumno    /    @item.CodigoPrograma</td>
+                            //                         </tr>
+                            //                         <tr>
+                            //                             <td scope="row">Usuario y Clave Virtual</td>
+                            //                             <td>@item.UsuarioVirtual - @item.ClaveVirtual</td>
+                            //                         </tr>
+                            //                         <tr>
+                            //                             <td scope="row">Pais de Origen</td>
+                            //                             <td>@item.Pais</td>
+                            //                         </tr>
+                            //                         <tr>
+                            //                             <td scope="row">Numero de Documento</td>
+                            //                             <td>@item.NumeroDocumento</td>
+                            //                         </tr>
+                            //                         <tr>
+                            //                             <td scope="row">Celular</td>
+                            //                             <td>@item.Celular</td>
+                            //                         </tr>
+                            //                         <tr>
+                            //                             <td scope="row">Correo</td>
+                            //                             <td>@item.Email</td>
+                            //                         </tr>
+                            //                         <tr>
+                            //                             <td scope="row"></td>
+                            //                             <td>
+                            //                                 <a asp-area="" asp-controller="" asp-action="" asp-route-id="@item.IdAlumno"> VER MAS DETALLE </a>
+                            //                             </td>
+                            //                         </tr>
+                            //                     </tbody>
+                            //                 </table>
+                            //                 <!-- End small tables -->
+                            //             </div>
+                            //         </div>
+                            //     </div>
+                            // </div>
+
+                            <!-- End Default Accordion Example -->
+                        }
+                    }
+
+                    <br />
+                    <br />
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+
+    <script>
+
+    </script>
+}

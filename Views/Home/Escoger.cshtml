@@ -1,0 +1,85 @@
+﻿@{
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<style>
+    .card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card {
+        width: 350px; /* Ajusta este valor para hacer las tarjetas más angostas */
+        height: 300px;
+        background-color: #F57D31;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-text {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        cursor: pointer; /* Agrega un cursor de puntero para indicar que es cliclable */
+    }
+
+    .card img {
+        transition: transform 0.2s, filter 0.2s; /* Transiciones suaves para el efecto de zoom */
+    }
+
+        .card img:hover {
+            transform: scale(1.1); /* Zoom del 110% al pasar el mouse */
+            filter: brightness(75%); /* Reduce el brillo de la imagen al pasar el mouse */
+        }
+
+        .card img:active {
+            transform: scale(1.2); /* Zoom del 120% cuando se hace clic */
+        }
+</style>
+
+<section>
+    <header class="section-header">
+        <h2>¿QUÉ OPCIÓN REALIZARÁS HOY?</h2>
+        <p>¡SELECCIONA UNA, POR FAVOR!</p>
+    </header>
+</section>
+
+<section>
+    <div class="card-container">
+        <div class="card">
+            <a asp-controller="Home" asp-action="EnviarExcel">
+                <img src="~/img/6.svg" alt="Imagen 1" width="200" height="200" />
+                <div class="card-text">I.A.</div>
+            </a>
+        </div>
+        <div class="card">
+            <a asp-controller="Home" asp-action="ListarTransacciones">
+                <img src="~/img/8.svg" alt="Imagen 2" width="200" height="200" />
+                <div class="card-text">REPORTES</div>
+            </a>
+        </div>
+        <div class="card">
+            <a asp-controller="Home" asp-action="BuscarCliente">
+                <img src="~/img/4.svg" alt="Imagen 3" width="200" height="200" />
+                <div class="card-text">CLIENTES</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<br />
+<br />

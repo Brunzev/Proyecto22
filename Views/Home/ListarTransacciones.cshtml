@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Proyecto.Models.ViewModel.QueryTransaccion>
+<br />
+<br />
+<br />
+<br />
+<br />
+
+@section Estilos{
+    <!-- PLUGIN PARA QUE FUNCIONE LA TABLA: DATATABLES -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+}
+
+<div class="container">
+    <header class="section-header">
+        <h2>Our Values</h2>
+        <p>Odit est perspiciatis laborum et dicta</p>
+    </header>
+
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-md-6">
+            <img src="/Tema/FlexStart/assets/img/features-2.png" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <table id="miTabla" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha Monto</th>
+                            <th scope="col">Monto</th>
+                            <th scope="col">PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="d-block h5 mb-0 text-start">@Html.DisplayFor(modelItem => item.FechaMonto)</span>
+                                </td>
+                                <td>
+                                    <span class="d-block h5 mb-0 text-start">@Html.DisplayFor(modelItem => item.MontoTransaccion)</span>
+                                </td>
+                                <td>
+                                    <span class="d-block mb-0 text-start" style="color: red; text-decoration: underline;">ENVIAR Y DESCARGAR</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+ 
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#miTabla').DataTable({
+                "paging": true, // Habilitar la paginación
+                "pageLength": 10 // Mostrar inicialmente 10 registros por página
+            });
+        });
+    </script>
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+}

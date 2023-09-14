@@ -34,7 +34,7 @@ namespace Proyecto.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
 
-            optionBuilder.UseSqlServer(@"Server=DESKTOP-NQ87FNI\SQLEXPRESS;Database=DbBcp;
+            optionBuilder.UseSqlServer(@"Server=DESKTOP-PDNHCQI;Database=DbBcp;
             Trusted_Connection=True;MultipleActiveResultSets=true");
 
         }

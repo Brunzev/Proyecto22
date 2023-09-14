@@ -1,23 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Proyecto.Models;
-using Python.Runtime;
+using Proyecto.Data.DataAccess;
+using Proyecto.Models.Entities;
+//using Python.Runtime;
 using System.Diagnostics;
 using System.Net.Mail;
+using Proyecto.Models;
+using Proyecto.Models.ViewModel;
 
 namespace Proyecto.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor; // Para acceder a los datos del usuario conectado
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult Index()
         {
-            return View();
+            string userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name; //ID USUARIO
+
+            ViewBag.usuario = userName;
+
+            if (userName == "gerente@bcp.com.pe")
+            {
+                return Redirect("~/Home/Escoger");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public IActionResult Privacy()
@@ -25,61 +41,32 @@ namespace Proyecto.Controllers
             return View();
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
         public IActionResult EnviarExcel()
         {
+            string userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name; //ID USUARIO
+
+            ViewBag.usuario = userName;
+
             return View();
         }
 
-        public IActionResult Servicio()
+        public IActionResult Escoger()
         {
+            string userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name; //ID USUARIO
+
+            ViewBag.usuario = userName;
+
             return View();
+
+
         }
-        /*
-        [HttpPost]
-        public async Task<IActionResult> Prueba(IFormFile archivoExcel) {
-            if (archivoExcel != null && archivoExcel.Length > 0)
-            {
-                // Guardar el archivo en el servidor (opcional)
-                var filePath = Path.GetTempFileName();
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await archivoExcel.CopyToAsync(stream);
-                }
 
-                // Obtén la ruta completa al script Python
-                //Runtime.PythonDLL = @"C:\Users\teres\AppData\Local\Programs\Python\Python311\python311.dll"; // Ruta a la carpeta de instalación de Python
-                PythonEngine.Initialize();
-                try
-                {
-                    // Ejecuta tu script Python
-                    using (Py.GIL())
-                    {
-                        Console.WriteLine("Ejecutando Script desde el Controller");
-                        dynamic ScriptIA = Py.Import("ScriptIA");
-                        dynamic archivoExcelGenerado = ScriptIA.UsarModelo(filePath);
-                        if (archivoExcelGenerado != null)
-                        {
-                            ScriptIA.Enviar(archivoExcelGenerado);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Error al generar el archivo Excel");
-                        }
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Maneja cualquier excepción que pueda ocurrir durante la ejecución del script
-                    Console.WriteLine("Error al ejecutar el script Python: " + ex.Message);
-                }
-                // Puedes redirigir a una vista o realizar cualquier otra acción aquí*/
-                //return RedirectToAction("Index");
-
-           // }
-            //return View();  
-       // }
-        
 
         [HttpPost]
         public async Task<IActionResult> EnviarExcel(IFormFile archivoExcel)
@@ -132,31 +119,31 @@ namespace Proyecto.Controllers
 
                     // Obtén la ruta completa al script Python
                     //Runtime.PythonDLL = @"C:\Users\teres\AppData\Local\Programs\Python\Python311\python311.dll"; // Ruta a la carpeta de instalación de Python
-                    PythonEngine.Initialize();
-                    try
-                    {
-                        // Ejecuta tu script Python
-                        using (Py.GIL())
-                        {
-                            Console.WriteLine("Ejecutando Script desde el Controller");
-                            dynamic ScriptIA = Py.Import("ScriptIA");
-                            dynamic archivoExcelGenerado = ScriptIA.UsarModelo(filePath);
-                            if (archivoExcelGenerado != null)
-                            {
-                                ScriptIA.Enviar(archivoExcelGenerado);
-                            }
-                            else
-                            {
-                                Console.WriteLine("Error al generar el archivo Excel");
-                            }
+                                                                            //PythonEngine.Initialize();
+                                                                            //try
+                                                                            //{
+                                                                            //    // Ejecuta tu script Python
+                                                                            //    using (Py.GIL())
+                                                                            //    {
+                                                                            //        Console.WriteLine("Ejecutando Script desde el Controller");
+                                                                            //        dynamic ScriptIA = Py.Import("ScriptIA");
+                                                                            //        dynamic archivoExcelGenerado = ScriptIA.UsarModelo(filePath);
+                                                                            //        if (archivoExcelGenerado != null)
+                                                                            //        {
+                                                                            //            ScriptIA.Enviar(archivoExcelGenerado);
+                                                                            //        }
+                                                                            //        else
+                                                                            //        {
+                                                                            //            Console.WriteLine("Error al generar el archivo Excel");
+                                                                            //        }
 
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Maneja cualquier excepción que pueda ocurrir durante la ejecución del script
-                        Console.WriteLine("Error al ejecutar el script Python: " + ex.Message);
-                    }
+                                                                            //    }
+                                                                            //}
+                                                                            //catch (Exception ex)
+                                                                            //{
+                                                                            //    // Maneja cualquier excepción que pueda ocurrir durante la ejecución del script
+                                                                            //    Console.WriteLine("Error al ejecutar el script Python: " + ex.Message);
+                                                                            //}
                     // Puedes redirigir a una vista o realizar cualquier otra acción aquí*/
                     return RedirectToAction("Index");
 
@@ -182,10 +169,42 @@ namespace Proyecto.Controllers
             
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+
+
+        public IActionResult ListarTransacciones()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            string userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name; //ID USUARIO
+
+            ViewBag.usuario = userName;
+
+            var da = new TransaccionDA();
+            var transacciones = da.GetTransacciones();
+
+            if (transacciones == null)
+            {
+                return RedirectToAction("Error");
+            }
+
+            return View(transacciones);
         }
+
+        public IActionResult BuscarCliente(string dni)
+        {
+            string userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name; //ID USUARIO
+
+            ViewBag.usuario = userName;
+
+            var transaccionDA = new TransaccionDA();
+            var cliente = transaccionDA.GetCliente(dni);
+            var model = new BuscarTransaccion();
+            model.dni = dni;
+            model.Resultado = cliente.ToList();
+
+            return View(model);
+
+        }
+
+
+
     }
 }
